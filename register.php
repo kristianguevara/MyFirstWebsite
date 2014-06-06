@@ -15,12 +15,13 @@
 
 <?php
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-	$username = mysql_real_escape_string($_POST['username']);
-	$password = mysql_real_escape_string($_POST['password']);
+	
     $bool = true;
 
 	mysql_connect("localhost", "root","") or die(mysql_error()); //Connect to server
 	mysql_select_db("first_db") or die("Cannot connect to database"); //Connect to database
+	$username = mysql_real_escape_string($_POST['username']);
+	$password = mysql_real_escape_string($_POST['password']);
 	$query = mysql_query("Select * from users"); //Query the users table
 	while($row = mysql_fetch_array($query)) //display all rows from query
 	{
