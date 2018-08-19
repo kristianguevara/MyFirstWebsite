@@ -19,10 +19,10 @@
 				<th>Edit Time</th>
 			</tr>
 			<?php
-				mysql_connect("localhost", "root","") or die(mysql_error()); //Connect to server
-				mysql_select_db("first_db") or die("Cannot connect to database"); //connect to database
-				$query = mysql_query("Select * from list Where public='yes'"); // SQL Query
-				while($row = mysql_fetch_array($query))
+				$conn = mysqli_connect("localhost", "root", "","first_db");
+				$sql="Select * from list Where public='yes'";
+				$query =mysqli_query($conn, $sql);
+				while($row = mysqli_fetch_array($query))
 				{
 					Print "<tr>";
 						Print '<td align="center">'. $row['id'] . "</td>";
