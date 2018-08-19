@@ -8,10 +8,10 @@
 
 	if($_SERVER['REQUEST_METHOD'] == "GET")
 	{
-		mysql_connect("localhost", "root","") or die(mysql_error()); //Connect to server
-		mysql_select_db("first_db") or die("Cannot connect to database"); //Connect to database
+		$conn = mysqli_connect("localhost", "root", "","first_db");
 		$id = $_GET['id'];
-		mysql_query("DELETE FROM list WHERE id='$id'");
+		$sql="DELETE FROM list WHERE id='$id'";
+		mysqli_query($conn, $sql);
 		header("location: home.php");
 	}
 ?>
