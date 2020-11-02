@@ -32,10 +32,10 @@
 				<th>Public Post</th>
 			</tr>
 			<?php
-				mysql_connect("localhost", "root","") or die(mysql_error()); //Connect to server
-				mysql_select_db("first_db") or die("Cannot connect to database"); //connect to database
-				$query = mysql_query("Select * from list"); // SQL Query
-				while($row = mysql_fetch_array($query))
+				$conn=mysqli_connect("localhost", "root","") or die(mysql_error()); //Connect to server
+				mysqli_select_db($conn,"first_db") or die("Cannot connect to database"); //connect to database
+				$query = mysqli_query($conn,"Select * from list"); // SQL Query
+				while($row = mysqli_fetch_array($query))
 				{
 					Print "<tr>";
 						Print '<td align="center">'. $row['id'] . "</td>";
