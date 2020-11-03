@@ -1,17 +1,18 @@
 <?php
 	session_start();
-	$username = mysql_real_escape_string($_POST['username']);
-	$password = mysql_real_escape_string($_POST['password']);
+	$conn=mysqli_connect("localhost", "root","") or die(mysql_error()); //Connect to server
+	mysqli_select_db($conn,"first_db") or die("Cannot connect to database"); //Connect to database
+	
+	$username = mysqli_real_escape_string($conn,$_POST['username']);
+	$password = mysqli_real_escape_string($conn,$_POST['password']);
 
-	mysql_connect("localhost", "root","") or die(mysql_error()); //Connect to server
-	mysql_select_db("first_db") or die("Cannot connect to database"); //Connect to database
-	$query = mysql_query("SELECT * from users WHERE username='$username'"); //Query the users table if there are matching rows equal to $username
-	$exists = mysql_num_rows($query); //Checks if username exists
+	$query = mysqli_query($conn,"SELECT * from users WHERE username='$username'"); //Query the users table if there are matching rows equal to $username
+	$exists = mysqli_num_rows($query); //Checks if username exists
 	$table_users = "";
 	$table_password = "";
 	if($exists > 0) //IF there are no returning rows or no existing username
 	{
-		while($row = mysql_fetch_assoc($query)) //display all rows from query
+		while($row = mysqli_fetch_assoc($query)) //display all rows from query
 		{
 			$table_users = $row['username']; // the first username row is passed on to $table_users, and so on until the query is finished
 			$table_password = $row['password']; // the first password row is passed on to $table_users, and so on until the query is finished

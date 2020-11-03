@@ -32,13 +32,13 @@
 					$id = $_GET['id'];
 					$_SESSION['id'] = $id;
 					$id_exists = true;
-					mysql_connect("localhost", "root","") or die(mysql_error()); //Connect to server
-					mysql_select_db("first_db") or die("Cannot connect to database"); //connect to database
-					$query = mysql_query("Select * from list Where id='$id'"); // SQL Query
-					$count = mysql_num_rows($query);
+					$conn=mysqli_connect("localhost", "root","") or die(mysql_error()); //Connect to server
+					mysqli_select_db($conn,"first_db") or die("Cannot connect to database"); //connect to database
+					$query = mysqli_query($conn,"Select * from list Where id='$id'"); // SQL Query
+					$count = mysqli_num_rows($query);
 					if($count > 0)
 					{
-						while($row = mysql_fetch_array($query))
+						while($row = mysqli_fetch_array($query))
 						{
 							Print "<tr>";
 								Print '<td align="center">'. $row['id'] . "</td>";
@@ -79,9 +79,9 @@
 <?php
 	if($_SERVER['REQUEST_METHOD'] == "POST")
 	{
-		mysql_connect("localhost", "root","") or die(mysql_error()); //Connect to server
-		mysql_select_db("first_db") or die("Cannot connect to database"); //Connect to database
-		$details = mysql_real_escape_string($_POST['details']);
+		$conn=mysqli_connect("localhost", "root","") or die(mysql_error()); //Connect to server
+		mysqli_select_db($conn,"first_db") or die("Cannot connect to database"); //Connect to database
+		$details = mysqli_real_escape_string($conn,$_POST['details']);
 		$public = "no";
 		$id = $_SESSION['id'];
 		$time = strftime("%X");//time
@@ -94,7 +94,7 @@
 				$public = "yes";
 			}
 		}
-		mysql_query("UPDATE list SET details='$details', public='$public', date_edited='$date', time_edited='$time' WHERE id='$id'") ;
+		mysqli_query($conn,"UPDATE list SET details='$details', public='$public', date_edited='$date', time_edited='$time' WHERE id='$id'") ;
 
 		header("location: home.php");
 	}
